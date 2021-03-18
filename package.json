@@ -1,0 +1,22 @@
+{
+  "name": "tpsongslinks",
+  "version": "1.0.0",
+  "description": "A Project created to discover links between touhou songs I like",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/poreniyi/TPSongsLinks.git"
+  },
+  "author": "Oluwaniyi Adekunle",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/poreniyi/TPSongsLinks/issues"
+  },
+  "homepage": "https://github.com/poreniyi/TPSongsLinks#readme",
+  "dependencies": {
+    "pg": "^8.5.1"
+  }
+}
