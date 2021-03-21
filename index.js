@@ -1,12 +1,14 @@
 let express = require('express');
 let app = express();
+require('dotenv').config();
 let path = require('path');
-
+let db=require('./DB/access');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.set('port', process.env.PORT || 3000);
 
-app.get('/', (req, res) => {
+app.get('/', async(req, res) => {
+    db.query('INSERT INTO cards(letter)VALUES ($1)',['apple'])
     res.render('home');
 })
 
