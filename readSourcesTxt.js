@@ -7,9 +7,9 @@ let readFile = async () => {
     let lines = data.split('\n');
     let sourceRegex = /^[^\d+.]/;
     let songRegex = /^\d+\)/
-    let currentSource={};
-    lines.forEach(element => {
-        element = element.replace(/(\r\n|\n|\r|\t)/gm, "");
+    let currentSource = {};
+    for (let i = 0; i < lines.length; i++) {
+        let element = lines[i].replace(/(\r\n|\n|\r|\t)/gm, "");
         if (element.match(sourceRegex)) {
             currentSource = element;
             Sources.push(element);
@@ -20,17 +20,10 @@ let readFile = async () => {
                 source: currentSource,
             });
         }
-    })
-    for (let i = 0; i < Sources.length; i++) {
-        let source = Sources[i];
-        if (source.startsWith('|')) {
-            Sources[i - 1] += source;
-            Sources.splice(i, 1);
-            i--;
-        }
     }
+
     console.log(Sources.length);
     console.log(Songs.length);
-   console.log(Songs);
+    console.log(Songs);
 }
 readFile();
