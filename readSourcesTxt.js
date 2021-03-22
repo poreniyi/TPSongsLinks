@@ -22,5 +22,8 @@ let readFile = async () => {
         }
     }
     console.log(Sources);
+    let songCounter=(accumulator,currentValue)=>accumulator+currentValue.songs.length
+    let songsCount=Sources.reduce(songCounter,0)
+    console.log(songsCount);
 }
 readFile();
