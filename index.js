@@ -8,13 +8,12 @@ app.set('view engine', 'ejs');
 app.set('port', process.env.PORT || 3000);
 
 app.get('/', async(req, res) => {
-    db.query('INSERT INTO cards(letter)VALUES ($1)',['apple'])
     res.render('home');
 })
-
+app.use('/',require('./routes/addSongs'))
 
 app.use((req, res, next) => {
-    res.status(404).render('home')
+    res.status(404).render('404')
 })
 
 app.listen(app.get('port'), () => {
