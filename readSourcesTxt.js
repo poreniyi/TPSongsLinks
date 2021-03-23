@@ -19,7 +19,7 @@ let readFile = async () => {
         }
         if (element.match(songRegex)) {
             let value = element.replace(songRegex, "").toLowerCase();
-            value=value.replace(/\s+/g, '')
+           // value=value.replace(/\s+/g, '')
             Sources[sourceCounter].songs.push(value.trim());
         }
     }
