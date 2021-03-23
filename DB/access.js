@@ -12,13 +12,7 @@ const pool = new Pool({
 })
 
 
-let testQuery = async () => {
-    let data = await pool.query('SELECT * FROM cards');
-    console.log(data.rows);
-    console.log(`finsished`);
-    //let data=client.query('INSERT INTO cards(letter)VALUES ($1)',['apple']);
-}
-testQuery()
+
 
 module.exports = {
     query: (text, params) => pool.query(text, params),
