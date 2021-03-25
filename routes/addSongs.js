@@ -3,7 +3,7 @@ let router = require('express').Router();
 
 
 router.get('/getSongs',async (req, res) => {
-    let data = await query(`SELECT * FROM SONGS`);
+    let data = await query(`SELECT * FROM SONGS ORDER BY id ASC`);
     data=data.rows;
     console.log(data);
     res.render('viewSongs',{data})
