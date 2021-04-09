@@ -13,6 +13,16 @@
         <th>ID</th>
         <th>Duration</th>
         <th>Year</th>
+        <th>IMG</th>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+                <img src= "<%-`data:${img.format};base64, ${img.base}`%>" width='100'  height='100'>
+            </td>
+        </tr>
         <%data.forEach(element=>{%>
             <tr>
                 <td><%=element.name%></td>
@@ -20,6 +30,7 @@
                 <% let length=Math.floor(element.length)||0%>
                 <td><%=`${Math.floor(length/60)}:${length%60}`%></td>
                 <td><%=element.year%></td>
+                
                 <%})%>
         </tr>
     </table>
