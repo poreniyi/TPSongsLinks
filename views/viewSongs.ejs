@@ -11,13 +11,14 @@
     <table>
         <th>SONG</th>
         <th>ID</th>
-        <th>Year</th>
         <th>Duration</th>
+        <th>Year</th>
         <%data.forEach(element=>{%>
             <tr>
                 <td><%=element.name%></td>
                 <td><%=element.id%></td>
-                <td><%=element.length%></td>
+                <% let length=Math.floor(element.length)||0%>
+                <td><%=`${Math.floor(length/60)}:${length%60}`%></td>
                 <td><%=element.year%></td>
                 <%})%>
         </tr>

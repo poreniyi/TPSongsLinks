@@ -13,7 +13,9 @@ let readMP3 = async () => {
     let Circles = metadata.common.albumartist;
     let songTitle = metadata.common.title;
     //console.log(metadata.native['ID3v2.3']);
-    console.log(metadata.common)//comments not broken up
+    console.log(metadata.format.duration);
+    //console.log(metadata.native['ID3v2.3']);
+    //console.log(metadata.common)//comments not broken up
 }
 //readMP3()
 
