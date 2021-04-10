@@ -8,6 +8,7 @@ app.set('view engine', 'ejs');
 app.set('port', process.env.PORT || 3000);
 
 app.use(express.static(path.join(__dirname,'public')));
+app.use(express.static(path.join(__dirname,'..','musicfiles')))
 
 app.get('/', async(req, res) => {
     res.render('home');
