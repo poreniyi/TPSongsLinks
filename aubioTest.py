@@ -78,4 +78,16 @@ def getFiles():
         src=basepath+entry
         convertToMp3(src,filename)
         print(filename)
-getFiles()
+# getFiles()
+
+def writeFile():
+    path= '../wavFiles/'
+    file= open('myFile.txt','w')
+    for entry in os.listdir(path):
+        filename=path+entry
+        songName=entry.split('.wav')[0]
+        # songName+":"+"\n"
+        file.write(f'{songName}:{get_file_bpm(filename)}\n')
+    file.close()
+
+writeFile();
