@@ -1,6 +1,7 @@
 from aubio import source, tempo
 from numpy import median, diff
 import os
+from pydub import AudioSegment
 
 def get_file_bpm(path, params=None):
     """ Calculate the beats per minute (bpm) of a given file.
@@ -65,8 +66,16 @@ def get_file_bpm(path, params=None):
 
 # print(get_file_bpm('./Ancient.wav'))
 basepath ='../musicfiles/'
+
+
+def convertToMp3(src,dst):
+    sound=AudioSegment.from_mp3(src)
+    sound.export(dst,format="wav")
+
 def getFiles():  
     for entry in os.listdir(basepath):
-        print(entry)
-
-# getFiles()
+        filename='tests/'+entry.split('.mp3')[0]+'.wav'
+        src=basepath+entry
+        convertToMp3(src,filename)
+        print(filename)
+getFiles()
