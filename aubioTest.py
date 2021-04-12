@@ -11,7 +11,8 @@ def get_file_bpm(path, params=None):
     if params is None:
         params = {}
     # default:
-    samplerate, win_s, hop_s = 44100, 1024, 512
+    samplerate=source(path).samplerate
+    win_s, hop_s = 1024, 512
     if 'mode' in params:
         if params.mode in ['super-fast']:
             # super fast
@@ -61,7 +62,6 @@ def get_file_bpm(path, params=None):
         else:
             print("not enough beats found in {:s}".format(path))
             return 0
-
     return beats_to_bpm(beats, path)
 
 # print(get_file_bpm('./Ancient.wav'))
@@ -87,7 +87,9 @@ def writeFile():
         filename=path+entry
         songName=entry.split('.wav')[0]
         # songName+":"+"\n"
-        file.write(f'{songName}:{get_file_bpm(filename)}\n')
+        text=f'{songName}:{get_file_bpm(filename)}'
+        # file.write(f'{songName}:{get_file_bpm(filename)}\n')
+        file.write(text+"\n")
     file.close()
 
 writeFile();
