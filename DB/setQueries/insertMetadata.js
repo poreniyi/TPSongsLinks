@@ -7,25 +7,27 @@ let insertData = async () => {
     let currentAlbumId;
     let musicFileList = await fs.readdir(path.join(__dirname, '../../../musicfiles'));
     for (let i = 0; i < musicFileList.length; i++) {
-      try { let metadata = await musicParser.parseFile(path.join(__dirname, `../../../musicfiles/${musicFileList[i]}`));
-        let title = metadata.common.title.trim();
-        let album = metadata.common.album;
-        let Vocalists = metadata.common.comment[0].split('/');//array
-        let Arrangers = metadata.common.composer;//array
-        let Circles = metadata.common.albumartist;//should be an array but not
-        let year = metadata.common.year;
-        let length = metadata.format.duration;
-        Circles = Circles || ''
-        let circleList = [];
-        console.log(musicFileList[i])
-        circleList = Circles.split('/');
-        // if (Circles.includes('/')) {
-        //     console.log(title);
-        // }
-        const {rows:album_id}=await query(`INSERT INTO ALBUMS(Name)
-               VALUES($1) ON CONFLICT (Name) DO NOTHING RETURNING id`, [album]) || album_id
-        if(album_id.length!=0) console.log(album_id)}
-        catch(err){
+        try {
+            let metadata = await musicParser.parseFile(path.join(__dirname, `../../../musicfiles/${musicFileList[i]}`));
+            let title = metadata.common.title.trim();
+            let album = metadata.common.album;
+            let Vocalists = metadata.common.comment[0].split('/');//array
+            let Arrangers = metadata.common.composer;//array
+            let Circles = metadata.common.albumartist;//should be an array but not
+            let year = metadata.common.year;
+            let length = metadata.format.duration;
+            Circles = Circles || ''
+            let circleList = [];
+            circleList = Circles.split('/');
+            // if (Circles.includes('/')) {
+            //     console.log(title);
+            // }
+            let { rows: [ album_id ] } = await query(`INSERT INTO ALBUMS(Name)
+               VALUES($1) ON CONFLICT (Name) DO NOTHING RETURNING id`, [album]) 
+            if(!album_id) ({ rows: [ album_id ] }= await query(`SELECT id FROM Albums Where Name = $1;`,[album]));
+             console.log(album_id)
+        }
+        catch (err) {
             console.log(musicFileList[i])
             console.log(err)
         }
