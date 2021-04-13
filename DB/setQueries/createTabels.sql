@@ -4,6 +4,8 @@ CREATE TABLE IF NOT EXISTS SONGS (
     Name TEXT UNIQUE,
 	Hash TEXT UNIQUE,
     Length float(5),
+	ImgFormat TEXT,
+	imgData bytea,
 	BPM float(5),
     Year SMALLINT,
 	album_id INT,
