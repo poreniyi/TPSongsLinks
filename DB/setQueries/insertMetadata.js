@@ -22,8 +22,8 @@ let insertData = async () => {
         // if (Circles.includes('/')) {
         //     console.log(title);
         // }
-         {rows:currentAlbumId}=await query(`INSERT INTO ALBUMS(Name)
-               VALUES($1) ON CONFLICT (Name) DO NOTHING RETURNING id`, [album])
+        const {rows:album_id}=await query(`INSERT INTO ALBUMS(Name)
+               VALUES($1) ON CONFLICT (Name) DO NOTHING RETURNING id`, [album]) || album_id
         if(album_id.length!=0) console.log(album_id)}
         catch(err){
             console.log(musicFileList[i])
