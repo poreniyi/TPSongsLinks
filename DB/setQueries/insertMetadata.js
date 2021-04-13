@@ -38,7 +38,7 @@ let insertData = async () => {
             // if (!album_id) ({ rows: [album_id] } = await query(`SELECT id FROM Albums Where Name = $1;`, [album]));
             // console.log(album_id)
             let {rows:[postBuffer]}=await query(`INSERT INTO SONGS (Name,Length,Year,Hash,imgformat,imgdata)
-            VALUES($1,$2,$3,$4,$5,$6)ON CONFLICT (NAME) DO NOTHING  `,[title, length, year, hashValue, imgFormat, stringBuffer])
+            VALUES($1,$2,$3,$4,$5,$6)ON CONFLICT (NAME) DO NOTHING  `,[title, length, year, hashValue, imgFormat, buffer])
         //    let { rows: [imgBuffer] }= await query(`INSERT INTO SONGS(Name,Length,Year,Hash,imgformat,imgdata)
         //        VALUES($1,$2,$3,$4,$5,$6)  RETURNING imgdata`,
         //         [title, length, year, hashValue, imgFormat, stringBuffer])
