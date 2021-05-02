@@ -8,7 +8,7 @@ let Jimp = require('jimp');
 let insertData = async () => {
     let currentAlbumId;
     let musicFileList = await fs.readdir(path.join(__dirname, '../../../musicfiles'));
-    for (let i = 0; i < musicFileList.length; i++) {
+    for (let i = 0; i < 1; i++) {
         try {
             let metadata = await musicParser.parseFile(path.join(__dirname, `../../../musicfiles/${musicFileList[i]}`));
             let title = metadata.common.title.trim();
@@ -25,10 +25,12 @@ let insertData = async () => {
             hash.update(metadata.common.title.replace(/\s+/g, '').toLowerCase());
             let hashValue = hash.digest('hex');
             let image = await Jimp.read(metadata.common.picture[0].data)
-            image.quality(60);
+            let quality=20;
+            image.quality(quality);
             let buffer = await image.getBufferAsync(Jimp.AUTO);
-            console.log(`The length of the buffer from jump is ${buffer.length}`)
-            let stringBuffer = buffer.toString('hex');
+            console.log(`The original size of the picture is: ${metadata.common.picture[0].data.length} bytes`)
+            console.log(`The new size of the image is ${buffer.length} with quality at ${quality}`)
+            console.log(`The size differnce is ${metadata.common.picture[0].data.length-buffer.length} bytes`)
 
             // console.log(`IMge before is ${buffer} and size is ${buffer.length}`)
             let imgFormat = metadata.common.picture[0].format;
@@ -37,12 +39,10 @@ let insertData = async () => {
             //    VALUES($1) ON CONFLICT (Name) DO NOTHING RETURNING id`, [album])
             // if (!album_id) ({ rows: [album_id] } = await query(`SELECT id FROM Albums Where Name = $1;`, [album]));
             // console.log(album_id)
-            let {rows:[postBuffer]}=await query(`INSERT INTO SONGS (Name,Length,Year,Hash,imgformat,imgdata)
-            VALUES($1,$2,$3,$4,$5,$6)ON CONFLICT (NAME) DO NOTHING  `,[title, length, year, hashValue, imgFormat, buffer])
-        //    let { rows: [imgBuffer] }= await query(`INSERT INTO SONGS(Name,Length,Year,Hash,imgformat,imgdata)
-        //        VALUES($1,$2,$3,$4,$5,$6)  RETURNING imgdata`,
-        //         [title, length, year, hashValue, imgFormat, stringBuffer])
-            //  console.log(`Img after is ${imgBuffer}`)
+
+            // let { rows: [postBuffer] } = await query(`INSERT INTO SONGS (Name,Length,Year,Hash,imgformat,imgdata)
+            // VALUES($1,$2,$3,$4,$5,$6)ON CONFLICT (NAME) DO NOTHING  `, [title, length, year, hashValue, imgFormat, buffer])
+
         }
         catch (err) {
             console.log(musicFileList[i])
